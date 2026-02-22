@@ -63,8 +63,14 @@ export function setupInvestmentForm(container: HTMLElement) {
         container.querySelectorAll('input').forEach(input => {
             input.addEventListener('input', (e) => {
                 const target = e.target as HTMLInputElement;
-                const value = parseInput(target.value);
+                let value = parseInput(target.value);
                 const key = target.name as any;
+
+                // Percentage and Year limits
+                const percentageKeys = ['incomeTaxRate', 'propertyGrowthRate', 'rentGrowthRate', 'inflationRate', 'occupancyRate'];
+                if (percentageKeys.includes(key) || key === 'holdingPeriod') {
+                    value = Math.min(value, 100);
+                }
 
                 if (key === 'ownCash') {
                     // Recalculate Loan Amount and LTV

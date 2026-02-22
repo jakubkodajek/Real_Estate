@@ -3,8 +3,8 @@ import type { MortgageParams, MortgageResult } from '../types';
 export function calculateMortgage(params: MortgageParams): MortgageResult {
     // Clamping / Ochranné limity
     const loanAmount = Math.max(0, params.loanAmount);
-    const rpsn = Math.max(0, params.rpsn);
-    const loanTerm = Math.max(0, Math.min(params.loanTerm, 100)); // Limit splácení na max 100 let pro prevenci NaN / Infinity
+    const rpsn = Math.max(0, Math.min(params.rpsn, 100)); // Úrok max 100%
+    const loanTerm = Math.max(0, Math.min(params.loanTerm, 35)); // Limit splácení na max 35 let
 
     if (loanAmount <= 0 || loanTerm <= 0) {
         return {

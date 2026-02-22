@@ -21,8 +21,15 @@ export function setupMortgageForm(container: HTMLElement, resultContainer: HTMLE
             input.addEventListener('input', (e) => {
                 const target = e.target as HTMLInputElement;
                 const rawValue = target.value;
-                const value = parseInput(rawValue);
+                let value = parseInput(rawValue);
                 const key = target.name as any;
+
+                // Value Boundaries
+                if (key === 'rpsn' || key === 'ltv') {
+                    value = Math.min(value, 100);
+                } else if (key === 'loanTerm') {
+                    value = Math.min(value, 35);
+                }
 
                 // Logic to sync Loan Amount
                 if (key === 'purchasePrice') {
