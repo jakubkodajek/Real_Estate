@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-    base: '/Reality_Estate/',
+    base: '/Real_Estate/',
 })
