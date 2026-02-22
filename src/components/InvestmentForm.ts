@@ -69,7 +69,10 @@ export function setupInvestmentForm(container: HTMLElement) {
                 // Percentage and Year limits
                 const percentageKeys = ['incomeTaxRate', 'propertyGrowthRate', 'rentGrowthRate', 'inflationRate', 'occupancyRate'];
                 if (percentageKeys.includes(key) || key === 'holdingPeriod') {
-                    value = Math.min(value, 100);
+                    if (value > 100) {
+                        value = 100;
+                        target.value = formatInput(100);
+                    }
                 }
 
                 if (key === 'ownCash') {

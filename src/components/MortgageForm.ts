@@ -26,9 +26,15 @@ export function setupMortgageForm(container: HTMLElement, resultContainer: HTMLE
 
                 // Value Boundaries
                 if (key === 'rpsn' || key === 'ltv') {
-                    value = Math.min(value, 100);
+                    if (value > 100) {
+                        value = 100;
+                        target.value = formatInput(100);
+                    }
                 } else if (key === 'loanTerm') {
-                    value = Math.min(value, 35);
+                    if (value > 35) {
+                        value = 35;
+                        target.value = formatInput(35);
+                    }
                 }
 
                 // Logic to sync Loan Amount
