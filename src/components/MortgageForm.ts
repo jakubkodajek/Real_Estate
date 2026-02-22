@@ -10,7 +10,7 @@ export function setupMortgageForm(container: HTMLElement, resultContainer: HTMLE
         container.innerHTML = `
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 ${createInput('purchasePrice', 'Cena nemovitosti (Kč)', state.purchasePrice)}
-                ${createInput('rpsn', 'RPSN (%)', state.rpsn)}
+                ${createInput('rpsn', 'Úroková sazba (%)', state.rpsn)}
                 ${createInput('ltv', 'LTV (%)', state.ltv)}
                 ${createInput('loanTerm', 'Doba splácení (roky)', state.loanTerm)}
             </div>
