@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="cs" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Realitní Kalkulátor</title>
+</head>
+
+<body class="bg-background text-slate-800 antialiased">
+  <div id="app" class="min-h-screen flex flex-col">
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">🏠</span>
+            <div class="flex flex-col">
+              <h1 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Realitní Kalkulátor</h1>
+              <input type="text" id="project-name"
+                class="bg-transparent border-b border-transparent hover:border-slate-300 focus:border-primary outline-none text-slate-800 font-bold text-lg transition-colors placeholder-slate-400"
+                placeholder="Název projektu" value="Můj Projekt">
+            </div>
+          </div>
+          <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
+            <a href="#hypoteka" class="hover:text-primary transition-colors">Hypotéka</a>
+            <a href="#investice" class="hover:text-primary transition-colors">Investice</a>
+            <a href="#tabulka" class="hover:text-primary transition-colors">Tabulka</a>
+            <a href="#graf" class="hover:text-primary transition-colors">Graf</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-12">
+
+      <!-- Top Section: Calculators -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+        <!-- Sec 1: Mortgage -->
+        <section id="hypoteka" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-8 space-y-6">
+          <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+            <div class="bg-blue-100 p-2 rounded-lg text-blue-600">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-landmark">
+                <line x1="3" x2="21" y1="22" y2="22" />
+                <line x1="6" x2="6" y1="18" y2="11" />
+                <line x1="10" x2="10" y1="18" y2="11" />
+                <line x1="14" x2="14" y1="18" y2="11" />
+                <line x1="18" x2="18" y1="18" y2="11" />
+                <polygon points="12 2 20 7 4 7" />
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800">Hypotéka</h2>
+          </div>
+          <div id="mortgage-form" class="space-y-4">
+            <!-- Mortgage Form Component will be rendered here -->
+          </div>
+          <div id="mortgage-result" class="mt-6 pt-6 border-t border-slate-100 bg-slate-50 p-4 rounded-xl">
+            <!-- Mortgage Results will be rendered here -->
+          </div>
+        </section>
+
+        <!-- Sec 2: Investment -->
+        <section id="investice" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-8 space-y-6">
+          <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+            <div class="bg-green-100 p-2 rounded-lg text-green-600">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-trending-up">
+                <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+                <polyline points="16 7 22 7 22 13" />
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800">Investice</h2>
+          </div>
+          <div id="investment-form" class="space-y-6">
+            <!-- Investment Form Component will be rendered here -->
+          </div>
+        </section>
+      </div>
+
+      <!-- Section 3: Visuals -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <!-- Results Table -->
+        <section id="tabulka"
+          class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-8 transition-all duration-300 relative group">
+          <div class="flex justify-between items-center mb-6">
+            <h3 class="text-xl font-bold text-slate-800">Vývoj v čase</h3>
+            <button id="expand-table-btn"
+              class="p-2 text-slate-400 hover:text-primary hover:bg-slate-50 rounded-lg transition-colors"
+              title="Zvětšit">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-maximize-2">
+                <polyline points="15 3 21 3 21 9" />
+                <polyline points="9 21 3 21 3 15" />
+                <line x1="21" x2="14" y1="3" y2="10" />
+                <line x1="3" x2="10" y1="21" y2="14" />
+              </svg>
+            </button>
+          </div>
+          <div class="overflow-x-auto max-h-[600px] overflow-y-auto" id="table-scroll-container">
+            <div id="results-table-container">
+              <!-- Table Component -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Chart -->
+        <section id="graf"
+          class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 md:p-4 h-fit self-start transition-all duration-300 relative group">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-xl font-bold text-slate-800">Cashflow</h3>
+            <button id="expand-chart-btn"
+              class="p-2 text-slate-400 hover:text-primary hover:bg-slate-50 rounded-lg transition-colors"
+              title="Zvětšit">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-maximize-2">
+                <polyline points="15 3 21 3 21 9" />
+                <polyline points="9 21 3 21 3 15" />
+                <line x1="21" x2="14" y1="3" y2="10" />
+                <line x1="3" x2="10" y1="21" y2="14" />
+              </svg>
+            </button>
+          </div>
+          <div id="custom-legend" class="flex flex-col gap-1 mb-4 pl-1"></div>
+          <div class="relative w-full h-[250px]" id="chart-container">
+            <canvas id="cashflow-chart"></canvas>
+          </div>
+        </section>
+      </div>
+
+      <div class="flex justify-end pb-8 gap-4">
+        <input type="file" id="import-file" class="hidden" accept=".json">
+        <button id="import-btn"
+          class="flex items-center gap-2 px-6 py-3 bg-white text-slate-700 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-upload">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="17 8 12 3 7 8" />
+            <line x1="12" x2="12" y1="3" y2="15" />
+          </svg>
+          Importovat
+        </button>
+        <button id="export-btn"
+          class="flex items-center gap-2 px-6 py-3 bg-slate-800 text-white rounded-xl hover:bg-slate-700 transition-colors shadow-lg shadow-slate-200">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-download">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" x2="12" y1="15" y2="3" />
+          </svg>
+          Exportovat JSON
+        </button>
+      </div>
+
+    </main>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
