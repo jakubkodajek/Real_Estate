@@ -3,26 +3,36 @@ import { calculateMortgage } from './mortgageCalc';
 
 export function calculateInvestment(state: AppState): YearlyProjection[] {
     const {
-        // purchasePrice, // Not directly used in simple cashflow
-        marketPrice: initialMarketPrice, // Use market price for value calculation? Or purchase price? Plan says "Aktualizovaná tržní cena". Usually starts at current market price.
-        monthlyRent: initialMonthlyRent,
-        // Costs
-        repairFund,
-        propertyInsurance,
-        propertyTax,
-        otherCosts,
-        // Market
+        marketPrice: initialMarketPriceRaw,
+        monthlyRent: initialMonthlyRentRaw,
+        repairFund: repairFundRaw,
+        propertyInsurance: propertyInsuranceRaw,
+        propertyTax: propertyTaxRaw,
+        otherCosts: otherCostsRaw,
         propertyGrowthRate,
         rentGrowthRate,
-        // inflationRate, // Not directly used in simple cashflow, maybe for real value? Plan doesn't specify using it for discounting yet.
-        holdingPeriod,
-        occupancyRate,
-        // Financing
-        loanAmount,
-        rpsn,
-        loanTerm,
-        ltv
+        holdingPeriod: holdingPeriodRaw,
+        occupancyRate: occupancyRateRaw,
+        loanAmount: loanAmountRaw,
+        rpsn: rpsnRaw,
+        loanTerm: loanTermRaw,
+        ltv: ltvRaw
     } = state;
+
+    // Bezpečnostní limity (Security Clamping)
+    const initialMarketPrice = Math.max(0, initialMarketPriceRaw);
+    const initialMonthlyRent = Math.max(0, initialMonthlyRentRaw);
+    const repairFund = Math.max(0, repairFundRaw);
+    const propertyInsurance = Math.max(0, propertyInsuranceRaw);
+    const propertyTax = Math.max(0, propertyTaxRaw);
+    const otherCosts = Math.max(0, otherCostsRaw);
+    // Limit for execution DOS: Max 100 let (prohlížeč bezpečně zvládá do srážek tisíců iterací, ale 100 je logické maximum realit)
+    const holdingPeriod = Math.max(1, Math.min(holdingPeriodRaw, 100));
+    const occupancyRate = Math.max(0, Math.min(occupancyRateRaw, 100));
+    const loanAmount = Math.max(0, loanAmountRaw);
+    const rpsn = Math.max(0, rpsnRaw);
+    const loanTerm = Math.max(0, Math.min(loanTermRaw, 100));
+    const ltv = Math.max(0, ltvRaw);
 
     // Calculate mortgage payment once (fixed)
     const mortgageResult = calculateMortgage({
