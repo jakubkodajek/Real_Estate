@@ -63,8 +63,21 @@ export function setupInvestmentForm(container: HTMLElement) {
         container.querySelectorAll('input').forEach(input => {
             input.addEventListener('input', (e) => {
                 const target = e.target as HTMLInputElement;
+
+                // Povolit pouze číslice, mezeru, tečku a čárku (vyfiltruje mínus i písmena)
+                const filteredValue = target.value.replace(/[^0-9.,\s]/g, '');
+                if (target.value !== filteredValue) {
+                    target.value = filteredValue;
+                }
+
                 let value = parseInput(target.value);
                 const key = target.name as any;
+
+                // Prevent negative numbers
+                if (value < 0) {
+                    value = 0;
+                    target.value = formatInput(0);
+                }
 
                 // Percentage and Year limits
                 const percentageKeys = ['incomeTaxRate', 'propertyGrowthRate', 'rentGrowthRate', 'inflationRate', 'occupancyRate'];
@@ -78,8 +91,14 @@ export function setupInvestmentForm(container: HTMLElement) {
                 if (key === 'ownCash') {
                     // Recalculate Loan Amount and LTV
                     // Own Cash = Purchase Price - Loan Amount
-                    // -> Loan Amount = Purchase Price - Own Cash
                     const currentPrice = getState().purchasePrice;
+
+                    // Vlastní hotovost nesmí přesáhnout kupní cenu
+                    if (value > currentPrice) {
+                        value = currentPrice;
+                        target.value = formatInput(currentPrice);
+                    }
+
                     const newLoanAmount = currentPrice - value;
 
                     // Update Loan Amount

@@ -20,9 +20,22 @@ export function setupMortgageForm(container: HTMLElement, resultContainer: HTMLE
         container.querySelectorAll('input').forEach(input => {
             input.addEventListener('input', (e) => {
                 const target = e.target as HTMLInputElement;
+
+                // Povolit pouze číslice, mezeru, tečku a čárku (vyfiltruje mínus i písmena)
+                const filteredValue = target.value.replace(/[^0-9.,\s]/g, '');
+                if (target.value !== filteredValue) {
+                    target.value = filteredValue;
+                }
+
                 const rawValue = target.value;
                 let value = parseInput(rawValue);
                 const key = target.name as any;
+
+                // Prevent negative numbers on all inputs
+                if (value < 0) {
+                    value = 0;
+                    target.value = formatInput(0);
+                }
 
                 // Value Boundaries
                 if (key === 'rpsn' || key === 'ltv') {
