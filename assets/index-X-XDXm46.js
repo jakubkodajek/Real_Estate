@@ -5,7 +5,7 @@
                 ${Se("ltv","LTV (%)",n.ltv)}
                 ${Se("loanTerm","Doba splácení (roky)",n.loanTerm)}
             </div>
-        `,i.querySelectorAll("input").forEach(o=>{o.addEventListener("input",a=>{const r=a.target,l=r.value;let c=Ot(l);const h=r.name;if(c<0&&(c=0,r.value=rt(0)),h==="rpsn"||h==="ltv"?c>100&&(c=100,r.value=rt(100)):h==="loanTerm"&&c>35&&(c=35,r.value=rt(35)),h==="purchasePrice"){const d=st().ltv,u=c*(d/100);at("loanAmount",u)}if(h==="ltv"){const u=st().purchasePrice*(c/100);at("loanAmount",u)}at(h,c)}),o.addEventListener("blur",a=>{const r=a.target,l=Ot(r.value);r.value=rt(l)}),o.addEventListener("focus",a=>{const r=a.target,l=Ot(r.value);r.value=l.toString(),r.select()})}),t.innerHTML=`
+        `,i.querySelectorAll("input").forEach(o=>{o.addEventListener("input",a=>{const r=a.target,l=r.value.replace(/[^0-9.,\s]/g,"");r.value!==l&&(r.value=l);const c=r.value;let h=Ot(c);const d=r.name;if(h<0&&(h=0,r.value=rt(0)),d==="rpsn"||d==="ltv"?h>100&&(h=100,r.value=rt(100)):d==="loanTerm"&&h>35&&(h=35,r.value=rt(35)),d==="purchasePrice"){const u=st().ltv,f=h*(u/100);at("loanAmount",f)}if(d==="ltv"){const f=st().purchasePrice*(h/100);at("loanAmount",f)}at(d,h)}),o.addEventListener("blur",a=>{const r=a.target,l=Ot(r.value);r.value=rt(l)}),o.addEventListener("focus",a=>{const r=a.target,l=Ot(r.value);r.value=l.toString(),r.select()})}),t.innerHTML=`
             <div class="grid grid-cols-2 gap-4 text-center">
                 <div>
                     <h3 class="text-xs font-semibold uppercase text-slate-500 tracking-wider">Měsíční splátka</h3>
@@ -82,7 +82,7 @@
                 <hr class="border-slate-100">
                 ${a}
             </div>
-        `,i.querySelectorAll("input").forEach(r=>{r.addEventListener("input",l=>{const c=l.target;let h=Ot(c.value);const d=c.name;if(h<0&&(h=0,c.value=rt(0)),(["incomeTaxRate","propertyGrowthRate","rentGrowthRate","inflationRate","occupancyRate"].includes(d)||d==="holdingPeriod")&&h>100&&(h=100,c.value=rt(100)),d==="ownCash"){const f=st().purchasePrice,g=f-h;if(at("loanAmount",g),f>0){const p=g/f*100;at("ltv",p)}}else if(d==="purchasePrice"){const f=st().ltv,g=h*(f/100);at("loanAmount",g),at(d,h)}else at(d,h)}),r.addEventListener("blur",l=>{const c=l.target,h=Ot(c.value);c.value=rt(h)}),r.addEventListener("focus",l=>{const c=l.target,h=Ot(c.value);c.value=h.toString(),c.select()})})})(),we(()=>{Ro(i)})}function X(i,t,e){return`
+        `,i.querySelectorAll("input").forEach(r=>{r.addEventListener("input",l=>{const c=l.target,h=c.value.replace(/[^0-9.,\s]/g,"");c.value!==h&&(c.value=h);let d=Ot(c.value);const u=c.name;if(d<0&&(d=0,c.value=rt(0)),(["incomeTaxRate","propertyGrowthRate","rentGrowthRate","inflationRate","occupancyRate"].includes(u)||u==="holdingPeriod")&&d>100&&(d=100,c.value=rt(100)),u==="ownCash"){const g=st().purchasePrice;d>g&&(d=g,c.value=rt(g));const p=g-d;if(at("loanAmount",p),g>0){const m=p/g*100;at("ltv",m)}}else if(u==="purchasePrice"){const g=st().ltv,p=d*(g/100);at("loanAmount",p),at(u,d)}else at(u,d)}),r.addEventListener("blur",l=>{const c=l.target,h=Ot(c.value);c.value=rt(h)}),r.addEventListener("focus",l=>{const c=l.target,h=Ot(c.value);c.value=h.toString(),c.select()})})})(),we(()=>{Ro(i)})}function X(i,t,e){return`
         <div class="flex flex-col space-y-1">
             <label for="${i}" class="text-xs font-medium text-slate-500 uppercase">${t}</label>
             <input
