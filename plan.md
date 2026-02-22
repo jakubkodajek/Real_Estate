@@ -299,16 +299,36 @@ export interface MortgageResult {
 
 ---
 
-## 📋 TODO / Možná rozšíření
+## � Deployment (GitHub Pages)
 
-- [ ] Import uložené konfigurace z JSON
+Projekt je nastaven pro automatický deployment na GitHub Pages pomocí větve `gh-pages`.
+
+### Požadavky
+- V `vite.config.ts` je klíč `base` nastaven na název repozitáře (tj. `base: '/Real_Estate/'`).
+- V `package.json` je nastaveno pole `"homepage"` na veřejnou URL adresu (tj. `https://jakubkodajek.github.io/Real_Estate/`).
+- Nainstalován balíček `gh-pages` přes NPM.
+
+### Jak nasadit novou verzi
+Kdykoliv uděláš jakoukoliv změnu v kódu a chceš ji publikovat reálným uživatelům, stačí v terminálu spustit tento jeden příkaz:
+
+```bash
+npm run deploy
+```
+
+Tento script automaticky spustí produkční kompilaci (příkaz `npm run build`, který vytvoří složku `dist`) a následně její obsah odešle na GitHub. *Změny na ostrém webu se většinou projeví během 1–3 minut.*
+
+---
+
+## �📋 TODO / Možná rozšíření
+
+- [x] Import uložené konfigurace z JSON
+- [x] Zobrazení ROI a yield metriky (hrubý/čistý výnos)
 - [ ] Porovnání více scénářů vedle sebe (optimistický / realistický / pesimistický)
 - [ ] Export do CSV / Excel
-- [ ] Zobrazení ROI a yield metriky (hrubý/čistý výnos)
 - [ ] Kalkulace odpočtu úroků z hypotéky při dani z příjmu
 - [ ] Dark mode přepínač
 - [ ] Perzistence dat v `localStorage`
 
 ---
 
-*Plán verze 1.0 — připraveno pro implementaci*
+*Plán verze 1.0 — implementováno, projekt nasazen*
